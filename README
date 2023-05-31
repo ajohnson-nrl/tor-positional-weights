@@ -1,0 +1,58 @@
+Description of files:
+
+- add_attack_analysis.py: Analyzes case-shifting attack in which adversary adds bandwidth to network.
+- calc_alt1_weights.py: Computes weights (and applicable case) under Alt1 weights. Outputs some sample allocations and corresponding macro for use in LaTeX document.
+- calc_alt2_weights.py: Computes weights (and applicable case) under Alt2 weights. Outputs some sample allocations and corresponding macro for use in LaTeX document.
+- calc_cur_weights.py: Computes weights (and applicable case) that Tor currently uses. Outputs some sample allocations and corresponding macro for use in LaTeX document. Includes option to instead use patches for two problematic cases.
+- download-consensuses.py: Script to automatically downloads Tor consensuses from CollecTor over a range of months.
+- gen_fig_wts.py: Compute weights and bandwidth allocations used in Figures 2–7.
+- organize_consensuses.sh: Utility script to extract consensuses from downloaded files.
+- posweight_analysis.py: Computes case for given network under current Tor weights, counts number of cases across given set of consensuses. Somewhat redundant with calc_cur_weights.py, which also computes cases for a given network.
+- process_consensuses.py: Iterates through consensuses, extracts network composition (e.g. G, M, E, and D values), and stores as JSON files.
+- shift_attack_analysis.py: Analyzes case-shifting attack in which adversary shifts bandwidth across relay classes.
+
+
+Reproducing Table 1:
+
+1. Run download-consensuses.py, organize_consensuses.sh, and
+process_consensuses.py to obtain consensuses values for the
+relevant periods in the table (December 02016 to December 02021).
+
+2. Make sure alt=False in line 1 of calc_cur_weights.py.
+Run $python3 add_attack_analysis.py 2020 12 2021 12
+to obtain relative bandwidth added and relative throughput change
+values for that period when conducting the adding attack. Similarly
+with different dates for other periods. The appropriately labeled
+outputs provide the values shown in Table 1 under the "BW
+added/shifted values" and "Throughput change" columns in the
+"Adding" rows.
+
+3. Make sure alt=False in line 1 of calc_cur_weights.py.
+Run $python3 shift_attack_analysis.py 2020 12 2021 12
+to obtain relative bandwidth added and relative throughput change
+values for that period when conducting the shifting attack. Similarly
+with different dates for other periods. The appropriately labeled
+outputs provide the values shown in Table 1 under the "BW
+added/shifted values" and "Throughput change" columns in the
+"Shifting" rows.
+
+4. Make sure alt=True in line 1 of calc_cur_weights.py.
+Run $python3 add_attack_analysis.py 2020 12 2021 12
+to obtain relative throughput change values if weights were optimally
+distributed for that period when conducting the adding
+attack. Similarly with different dates for other periods. The
+appropriately labeled outputs provide the values shown in Table 1
+under the "Tput change: wts optimal" columns in the "Adding" rows.
+
+5. Make sure alt=True in line 1 of calc_cur_weights.py.
+Run $python3 shift_attack_analysis.py 2020 12 2021 12
+to obtain relative throughput change values if weights were optimally
+distributed for that period when conducting the adding
+attack. Similarly with different dates for other periods. The
+appropriately labeled outputs provide the values shown in Table 1
+under the "Tput change: wts optimal" columns in the "Shifting" rows.
+
+
+Reproducing Figures 2–7:
+
+1. Run $python3 gen_fig_wts.py  This will output data for the different figures.  For each figure, this outputs the (G,M,E,D) values and then, for each of the weightings used in the figure, a table.  The first column shows which weight wxy is used in the row.  The second column shows the value of the weight wxy.  The third column shows the bandwidth (obtained by multiplying wxy by the bandwidth in class y).  There is no wmm value given (because all class-M bandwidth is put in the middle position); the final line shows the bandwidth in Mm, i.e., the amount of class-M bandwidth.
