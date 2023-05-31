@@ -4,11 +4,11 @@ Description of files:
 - calc_alt1_weights.py: Computes weights (and applicable case) under Alt1 weights. Outputs some sample allocations and corresponding macro for use in LaTeX document.
 - calc_alt2_weights.py: Computes weights (and applicable case) under Alt2 weights. Outputs some sample allocations and corresponding macro for use in LaTeX document.
 - calc_cur_weights.py: Computes weights (and applicable case) that Tor currently uses. Outputs some sample allocations and corresponding macro for use in LaTeX document. Includes option to instead use patches for two problematic cases.
-- download-consensuses.py: Script to automatically downloads Tor consensuses from CollecTor over a range of months.
+- download-consensuses.py: Script to automatically downloads Tor consensuses from CollecTor over a range of months. Requires pycurl.
 - gen_fig_wts.py: Compute weights and bandwidth allocations used in Figures 2–7.
 - organize_consensuses.sh: Utility script to extract consensuses from downloaded files.
 - posweight_analysis.py: Computes case for given network under current Tor weights, counts number of cases across given set of consensuses. Somewhat redundant with calc_cur_weights.py, which also computes cases for a given network.
-- process_consensuses.py: Iterates through consensuses, extracts network composition (e.g. G, M, E, and D values), and stores as JSON files.
+- process_consensuses.py: Iterates through consensuses, extracts network composition (e.g. G, M, E, and D values), and stores as JSON files. Requires Tor Stem library (obtain at stem.torproject.org).
 - shift_attack_analysis.py: Analyzes case-shifting attack in which adversary shifts bandwidth across relay classes.
 
 
